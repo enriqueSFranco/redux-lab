@@ -1,5 +1,5 @@
 import './App.css'
-import { AddPostForm } from './components/AddPostForm'
+import { AddPostForm } from './components/PostForm'
 import { PostList } from './components/PostList'
 //import { Counter } from './components/Counter'
 

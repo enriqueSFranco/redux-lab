@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router"
 import { useAppSelector } from "../hooks"
 
 export function PostList () {
@@ -10,7 +11,9 @@ export function PostList () {
                 {posts.map(post => (
                     <li key={`post-id-${post.id}`}>
                         <article className="post-excerpt">
-                            <h3>{post.title}</h3>
+                            <h3>
+                                <Link to={`/post/${post.id}`}>{post.title}</Link>
+                            </h3>
                             <p className="post-name">{post.content.substring(0, 100)}</p>
                         </article>
                     </li>
