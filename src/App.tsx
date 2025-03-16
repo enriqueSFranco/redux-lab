@@ -1,17 +1,18 @@
 import './App.css'
-import { AddPostForm } from './components/PostForm'
-import { PostList } from './components/PostList'
-//import { Counter } from './components/Counter'
+
+import { RouterProvider, createRouter } from '@tanstack/react-router'
+import { routeTree } from './routeTree.gen.ts'
+const router = createRouter({ routeTree, context: { authentication: undefined } })
+
+
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router
+  }
+}
 
 function App () {
-
-  return (
-    <>
-      {/*<Counter />*/}
-      <AddPostForm />
-      <PostList />
-    </>
-  )
+  return <RouterProvider router={router} />
 }
 
 export default App

@@ -11,10 +11,17 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as AuthenticatedImport } from './routes/_authenticated'
 import { Route as IndexImport } from './routes/index'
-import { Route as PostIdImport } from './routes/post/$id'
+import { Route as PostsIndexImport } from './routes/posts/index'
+import { Route as PostsIdImport } from './routes/posts/$id'
 
 // Create/Update Routes
+
+const AuthenticatedRoute = AuthenticatedImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
@@ -22,9 +29,15 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const PostIdRoute = PostIdImport.update({
-  id: '/post/$id',
-  path: '/post/$id',
+const PostsIndexRoute = PostsIndexImport.update({
+  id: '/posts/',
+  path: '/posts/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PostsIdRoute = PostsIdImport.update({
+  id: '/posts/$id',
+  path: '/posts/$id',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -39,11 +52,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/post/$id': {
-      id: '/post/$id'
-      path: '/post/$id'
-      fullPath: '/post/$id'
-      preLoaderRoute: typeof PostIdImport
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthenticatedImport
+      parentRoute: typeof rootRoute
+    }
+    '/posts/$id': {
+      id: '/posts/$id'
+      path: '/posts/$id'
+      fullPath: '/posts/$id'
+      preLoaderRoute: typeof PostsIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/posts/': {
+      id: '/posts/'
+      path: '/posts'
+      fullPath: '/posts'
+      preLoaderRoute: typeof PostsIndexImport
       parentRoute: typeof rootRoute
     }
   }
@@ -53,37 +80,47 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/post/$id': typeof PostIdRoute
+  '': typeof AuthenticatedRoute
+  '/posts/$id': typeof PostsIdRoute
+  '/posts': typeof PostsIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/post/$id': typeof PostIdRoute
+  '': typeof AuthenticatedRoute
+  '/posts/$id': typeof PostsIdRoute
+  '/posts': typeof PostsIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/post/$id': typeof PostIdRoute
+  '/_authenticated': typeof AuthenticatedRoute
+  '/posts/$id': typeof PostsIdRoute
+  '/posts/': typeof PostsIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/post/$id'
+  fullPaths: '/' | '' | '/posts/$id' | '/posts'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/post/$id'
-  id: '__root__' | '/' | '/post/$id'
+  to: '/' | '' | '/posts/$id' | '/posts'
+  id: '__root__' | '/' | '/_authenticated' | '/posts/$id' | '/posts/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  PostIdRoute: typeof PostIdRoute
+  AuthenticatedRoute: typeof AuthenticatedRoute
+  PostsIdRoute: typeof PostsIdRoute
+  PostsIndexRoute: typeof PostsIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  PostIdRoute: PostIdRoute,
+  AuthenticatedRoute: AuthenticatedRoute,
+  PostsIdRoute: PostsIdRoute,
+  PostsIndexRoute: PostsIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -97,14 +134,22 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/post/$id"
+        "/_authenticated",
+        "/posts/$id",
+        "/posts/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/post/$id": {
-      "filePath": "post/$id.tsx"
+    "/_authenticated": {
+      "filePath": "_authenticated.tsx"
+    },
+    "/posts/$id": {
+      "filePath": "posts/$id.tsx"
+    },
+    "/posts/": {
+      "filePath": "posts/index.tsx"
     }
   }
 }

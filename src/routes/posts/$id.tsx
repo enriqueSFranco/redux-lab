@@ -1,18 +1,21 @@
-import { createFileRoute, useParams } from '@tanstack/react-router'
+import { createFileRoute, Link, useParams } from '@tanstack/react-router'
 import { useAppSelector } from '../../hooks'
+import { selectCurrentUsername } from '../../features/auth/authSlice'
 
 
-export const Route = createFileRoute('/post/$id')({
-    component: SinglePagePost
+export const Route = createFileRoute('/posts/$id')({
+    component: SinglePost
 })
 
-function SinglePagePost () {
+function SinglePost () {
     const { id = "" } = useParams({ strict: false })
+    const currentUsername = useAppSelector(selectCurrentUsername)
 
     const post = useAppSelector(state => {
         return state.posts.find(post => post.id === id)
     })
 
+    const canEdit = currentUsername === post?.user
 
     if (!post) {
         return (
@@ -27,6 +30,11 @@ function SinglePagePost () {
             <article className="post">
                 <h2>{post.title}</h2>
                 <p className="post-content">{post.content}</p>
+                {canEdit && (
+                    <Link to='/posts/edit/$id'>
+                        Edit post
+                    </Link>
+                )}
             </article>
         </section>
     )
