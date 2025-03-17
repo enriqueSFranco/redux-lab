@@ -1,4 +1,4 @@
-import { getTimeAgo } from "../lib/timeAgo"
+import { getTimeAgo } from "../../lib/timeAgo"
 
 interface TimeAgoProps {
     timestamp: string

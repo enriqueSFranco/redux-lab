@@ -1,8 +1,8 @@
 import { Link } from "@tanstack/react-router"
-import { useAppSelector } from "../hooks"
-import { selectPostAll } from "../features/posts/postsSlice"
-import { TimeAgo } from "./TimeAgo"
-import { ReactionButtons } from "./ReactionButtons"
+import { selectPostAll } from "../../features/posts/postsSlice"
+import { useAppSelector } from "../../hooks"
+import { TimeAgo } from "../atoms/TimeAgo"
+import { ReactionButtons } from "../molecules/ReactionButtons"
 
 export function PostList () {
     // para leer los datos de la store usamos el hook useSelector
