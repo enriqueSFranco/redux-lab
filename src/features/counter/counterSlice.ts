@@ -4,9 +4,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import type { PayloadAction } from "@reduxjs/toolkit"
 
-import type { RootState, AppThunk } from "../../state/store"
+import type { RootState, AppThunk } from "../../app/store"
 
-import { fetchCount } from "../../fake_api/counterApi"
+import { fetchCount } from "../../api/counterApi"
 
 // Define the TS type for the counter slice's state
 export interface CounterState {
