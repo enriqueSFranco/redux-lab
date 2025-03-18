@@ -9,7 +9,7 @@ import { fetchUsers } from './features/users/usersSlice.ts'
 
 
 if (process.env.NODE_ENV === 'development') {
-  worker.start({ onUnhandledRequest: 'bypass' })
+  worker.start()
   store.dispatch(fetchUsers())
 }
 
