@@ -4,6 +4,7 @@ import postsReducer from '../features/posts/postsSlice'
 import counterReducer from '../features/counter/counterSlice'
 import usersReducer from '../features/users/usersSlice'
 import authSlice from '../features/auth/authSlice'
+import { apiSlice } from '../features/api/apiSlice'
 
 // creamos la store
 export const store = configureStore({
@@ -11,7 +12,11 @@ export const store = configureStore({
         posts: postsReducer,
         users: usersReducer,
         auth: authSlice,
+        [apiSlice.reducerPath]: apiSlice.reducer,
         counter: counterReducer
+    },
+    middleware: getDefaultMiddleware => {
+        return getDefaultMiddleware().concat(apiSlice.middleware)
     }
 })
 
