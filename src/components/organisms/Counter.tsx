@@ -2,7 +2,7 @@ import { useState } from "react"
 
 // Use pre-typed versions of the React-Redux
 // `useDispatch` and `useSelector` hooks
-import { useAppDispatch, useAppSelector } from "../hooks"
+import { useAppDispatch, useAppSelector } from "../../hooks"
 import {
     decrement,
     increment,
@@ -11,7 +11,7 @@ import {
     incrementIfOdd,
     selectCount,
     selectStatus,
-} from "../features/counter/counterSlice"
+} from "../../features/counter/counterSlice"
 
 import styles from "../styles/Counter.module.css"
 

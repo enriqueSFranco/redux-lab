@@ -2,11 +2,15 @@ import type { Action, ThunkAction } from '@reduxjs/toolkit'
 import { configureStore } from '@reduxjs/toolkit'
 import postsReducer from '../features/posts/postsSlice'
 import counterReducer from '../features/counter/counterSlice'
+import usersReducer from '../features/users/usersSlice'
+import authSlice from '../features/auth/authSlice'
 
 // creamos la store
 export const store = configureStore({
     reducer: {
         posts: postsReducer,
+        users: usersReducer,
+        auth: authSlice,
         counter: counterReducer
     }
 })
