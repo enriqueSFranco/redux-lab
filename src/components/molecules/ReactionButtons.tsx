@@ -22,7 +22,7 @@ export function ReactionButtons ({ post }: ReactionButtonsProps) {
 
     return (
         <div>
-            <ul>
+            <ul className="flex items-center justify-start gap-4">
                 {Object.entries(reactionEmoji).map(([nameReaction, emoji]) => {
                     const reaction = nameReaction as ReactionName;
                     return (
@@ -32,6 +32,7 @@ export function ReactionButtons ({ post }: ReactionButtonsProps) {
                             onClick={() =>
                                 dispatch(reactionAdded({ postId: post.id, reaction }))
                             }
+                            className="px-2 py-1 outline outline-gray-700 rounded-sm"
                         >
                             {emoji} {post.reactions[reaction]}
                         </button>
